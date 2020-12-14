@@ -3,5 +3,5 @@ build:
    web: ./Dockerfile
  config:
    REQUIREMENTS_FILENAME: heroku.yml
-  run:
-    web: streamlit run --server.port $PORT dashboard.py
+run:
+  web: streamlit run --server.port $PORT dashboard.py
