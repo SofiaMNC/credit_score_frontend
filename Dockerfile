@@ -13,6 +13,6 @@ COPY . /usr/src/app
 
 EXPOSE 8501
 
-ENTRYPOINT ["streamlit", "run"]
+#ENTRYPOINT ["streamlit", "run"]
 
-CMD ["dashboard.py"]
+#CMD ["dashboard.py"]
