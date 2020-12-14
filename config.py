@@ -1,5 +1,6 @@
 
-API_URL = "http://api_server:8080/v2/"
+#API_URL = "http://api_server:8080/v2/"
+API_URL = "http://creditscoring-backend.herokuapp.com/v2/"
 
 personal_info_cols = {
     'AMT_INCOME_TOTAL': "Income",
