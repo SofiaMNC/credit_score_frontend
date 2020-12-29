@@ -267,7 +267,7 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(personal_info_client_df[most_important_features_days]),
+    x=list(personal_info_client_df.reindex(most_important_features_days)),
     y=most_important_features_days,
     name='Selected Client',
     marker_color='blue',
@@ -312,7 +312,7 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(client_info[most_important_features_amt]),
+    x=list(client_info.reindex(most_important_features_amt)),
     y=most_important_features_amt,
     name='Selected Client',
     marker_color='blue',
@@ -357,7 +357,7 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(client_info[most_important_features_ext]),
+    x=list(client_info.reindex(most_important_features_ext)),
     y=most_important_features_ext,
     name='Selected Clients',
     marker_color='blue',
@@ -425,7 +425,7 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(personal_info_client_df[most_important_features_days]),
+    x=list(personal_info_client_df.reindex(most_important_features_days)),
     y=most_important_features_days,
     name='Selected Client',
     marker_color='blue',
@@ -470,7 +470,7 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(client_info[most_important_features_amt]),
+    x=list(client_info.reindex(most_important_features_amt)),
     y=most_important_features_amt,
     name='Selected Client',
     marker_color='blue',
@@ -515,7 +515,7 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(client_info[most_important_features_ext]),
+    x=list(client_info.reindex(most_important_features_ext)),
     y=most_important_features_ext,
     name='Selected Client',
     marker_color='blue',
