@@ -20,7 +20,7 @@ personal_info_cols = {
 
 most_important_features_days = [
     'YEARS AT CURRENT JOB',
-    'DAYS_BIRTH',
+    'AGE',
 ]
 
 most_important_features_amt = [
