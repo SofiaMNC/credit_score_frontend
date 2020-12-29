@@ -210,6 +210,8 @@ right_column.header("Personal Data")
 personal_info_client_df = client_info[list(personal_info_cols.keys())]\
                           .rename(index=personal_info_cols)\
                           .rename("Values")
+personal_info_client_df["AGE"] = round(personal_info_client_df["AGE"]/365*(-1),1)
+personal_info_client_df["YEARS AT CURRENT JOB"] = round(personal_info_client_df["YEARS AT CURRENT JOB"]/365*(-1),1)
 
 # Populate display
 right_column.dataframe(data=personal_info_client_df, 
@@ -229,19 +231,27 @@ left_column_2, right_column_2 = st.beta_columns((1, 1))
 
 left_column_2.subheader("COMPARISON WITH SIMILAR CLIENTS")
 
-similar_clients_data["DAYS_BIRTH"] = similar_clients_data["DAYS_BIRTH"]/365*(-1)
-similar_clients_data["DAYS_EMPLOYED"] = similar_clients_data["DAYS_EMPLOYED"]/365*(-1)
-client_info["DAYS_BIRTH"] = client_info["DAYS_BIRTH"]/365*(-1)
-client_info["DAYS_EMPLOYED"] = client_info["DAYS_EMPLOYED"]/365*(-1)
+graph_similar_clients_data = pd.DataFrame()
+graph_client_info = pd.DataFrame()
+
+graph_similar_clients_data["AGE"] = similar_clients_data["DAYS_BIRTH"]/365*(-1)
+graph_similar_clients_data["YEARS AT CURRENT JOB"] = similar_clients_data["DAYS_EMPLOYED"]/365*(-1)
+graph_client_info["AGE"] = personal_info_client_df["AGE"]
+graph_client_info["YEARS AT CURRENT JOB"] = personal_info_client_df["YEARS AT CURRENT JOB"]
+
 
 best_cs_value = int(similar_clients_data["Credit Score"].min()*100)
 worst_cs_value = int(similar_clients_data["Credit Score"].max()*100)
 
 best_threshold = left_column_2.slider('Ideal client minimun default risk score', best_cs_value, 100, best_cs_value + 25)
-best_data = similar_clients_data[similar_clients_data["Credit Score"]<=(best_threshold+1)/100]
+best_data = similar_clients_data[similar_clients_data["Credit Score"]<=(best_threshold+1)/100].copy()
+best_data["AGE"] = best_data["DAYS_BIRTH"]/365*(-1)
+best_data["YEARS AT CURRENT JOB"] = best_data["DAYS_EMPLOYED"]/365*(-1)
 
 worst_threshold = left_column_2.slider('Worst client maximum default risk score', 0, worst_cs_value, worst_cs_value - 25)
-worst_data = similar_clients_data[similar_clients_data["Credit Score"]>=(worst_threshold)/100]
+worst_data = similar_clients_data[similar_clients_data["Credit Score"]>=(worst_threshold)/100].copy()
+worst_data["AGE"] = worst_data["DAYS_BIRTH"]/365*(-1)
+worst_data["YEARS AT CURRENT JOB"] = worst_data["DAYS_EMPLOYED"]/365*(-1)
 
 # DAYS
 
@@ -257,16 +267,16 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(client_info[most_important_features_days]),
+    x=list(personal_info_client_df[most_important_features_days]),
     y=most_important_features_days,
-    name='Selected Clients',
+    name='Selected Client',
     marker_color='blue',
     orientation='h'
 ))
 
 # Average similar clients
 fig.add_trace(go.Bar(
-    x=list(similar_clients_data[most_important_features_days].mean()),
+    x=list(graph_similar_clients_data[most_important_features_days].mean()),
     y=most_important_features_days,
     name='Average Clients',
     marker_color='lightblue',
@@ -284,7 +294,7 @@ fig.add_trace(go.Bar(
 
 # Here we modify the tickangle of the xaxis, resulting in rotated labels.
 fig.update_layout(barmode='group', xaxis_tickangle=-45, 
-                  title_text="Age and Number of Days of Employment",
+                  title_text="Age and Years at current job",
                   width=1000, height=600)
 left_column_2.plotly_chart(fig)
 
@@ -304,7 +314,7 @@ fig.add_trace(go.Bar(
 fig.add_trace(go.Bar(
     x=list(client_info[most_important_features_amt]),
     y=most_important_features_amt,
-    name='Selected Clients',
+    name='Selected Client',
     marker_color='blue',
     orientation='h'
 ))
@@ -383,8 +393,9 @@ left_column_2.plotly_chart(fig)
 
 right_column_2.subheader("COMPARISON WITH ALL CLIENTS")
 
-main_data["DAYS_BIRTH"] = main_data["DAYS_BIRTH"]/365*(-1)
-main_data["DAYS_EMPLOYED"] = main_data["DAYS_EMPLOYED"]/365*(-1)
+graph_main_data = pd.DataFrame()
+graph_main_data["AGE"] = main_data["DAYS_BIRTH"]/365*(-1)
+graph_main_data["YEARS AT CURRENT JOB"] = main_data["DAYS_EMPLOYED"]/365*(-1)
 
 best_cs_value = int(main_data["Credit Score"].min()*100)
 worst_cs_value = int(main_data["Credit Score"].max()*100)
@@ -392,9 +403,13 @@ worst_cs_value = int(main_data["Credit Score"].max()*100)
 best_global_threshold = right_column_2.slider('Ideal client minimun credit score', best_cs_value, 100, best_cs_value + 25, key="global_best")
 worst_global_threshold = right_column_2.slider('Worst client maximum credit score', 0, worst_cs_value, worst_cs_value - 25, key="global_worst")
 
-best_global_data = main_data[main_data["Credit Score"]<=best_global_threshold/100]
-worst_global_data = main_data[main_data["Credit Score"]>=worst_global_threshold/100]
+best_global_data = main_data[main_data["Credit Score"]<=best_global_threshold/100].copy()
+best_global_data["AGE"] = best_global_data["DAYS_BIRTH"]/365*(-1)
+best_global_data["YEARS AT CURRENT JOB"] = best_global_data["DAYS_EMPLOYED"]/365*(-1)
 
+worst_global_data = main_data[main_data["Credit Score"]>=worst_global_threshold/100].copy()
+worst_global_data["AGE"] = worst_global_data["DAYS_BIRTH"]/365*(-1)
+worst_global_data["YEARS AT CURRENT JOB"] = worst_global_data["DAYS_EMPLOYED"]/365*(-1)
 
 # DAYS
 
@@ -410,7 +425,7 @@ fig.add_trace(go.Bar(
 
 # Selected client
 fig.add_trace(go.Bar(
-    x=list(client_info[most_important_features_days]),
+    x=list(personal_info_client_df[most_important_features_days]),
     y=most_important_features_days,
     name='Selected Client',
     marker_color='blue',
@@ -419,7 +434,7 @@ fig.add_trace(go.Bar(
 
 # Average global clients
 fig.add_trace(go.Bar(
-    x=list(main_data[most_important_features_days].mean()),
+    x=list(graph_main_data[most_important_features_days].mean()),
     y=most_important_features_days,
     name='Average Clients',
     marker_color='lightblue',
@@ -437,7 +452,7 @@ fig.add_trace(go.Bar(
 
 # Here we modify the tickangle of the xaxis, resulting in rotated labels.
 fig.update_layout(barmode='group', xaxis_tickangle=-45, 
-                  title_text="Age and Number of Days of Employment",
+                  title_text="Age and Years at current job",
                   width=1000, height=600)
 right_column_2.plotly_chart(fig)
 
