@@ -2,24 +2,24 @@
 API_URL = "http://creditscoring-backend.herokuapp.com/v2/"
 
 personal_info_cols = {
-    'AMT_INCOME_TOTAL': "Income",
-    'CNT_CHILDREN': "Children",
-    'CNT_FAM_MEMBERS': "Family members",   
-    'CODE_GENDER': "Gender",
-    'DAYS_BIRTH': "Age",
-    'DAYS_EMPLOYED': "Days at current job",
-    'NAME_CONTRACT_TYPE': "Type of loan",
-    'NAME_EDUCATION_TYPE': "Highest education",
-    'NAME_FAMILY_STATUS': "Family status",
-    'NAME_HOUSING_TYPE': "Housing situation",
-    'NAME_INCOME_TYPE': "Income type",
-    'NAME_TYPE_SUITE': "Accompanied by",
-    'OCCUPATION_TYPE': "Occupation",
-    'ORGANIZATION_TYPE': "Organization type" 
+    'AMT_INCOME_TOTAL': "INCOME",
+    'CNT_CHILDREN': "CHILDREN",
+    'CNT_FAM_MEMBERS': "FAMILY MEMBERS",   
+    'CODE_GENDER': "GENDER",
+    'DAYS_BIRTH': "AGE",
+    'DAYS_EMPLOYED': "YEARS AT CURRENT JOB",
+    'NAME_CONTRACT_TYPE': "LOAN TYPE",
+    'NAME_EDUCATION_TYPE': "HIGHEST EDUCATION",
+    'NAME_FAMILY_STATUS': "FAMILY STATUS",
+    'NAME_HOUSING_TYPE': "HOUSING SITUATION",
+    'NAME_INCOME_TYPE': "INCOME TYPE",
+    'NAME_TYPE_SUITE': "ACCOMPANIED BY",
+    'OCCUPATION_TYPE': "OCCUPATION",
+    'ORGANIZATION_TYPE': "ORGANIZATION TYPE" 
 }
 
 most_important_features_days = [
-    'DAYS_EMPLOYED',
+    'YEARS AT CURRENT JOB',
     'DAYS_BIRTH',
 ]
 
