@@ -163,10 +163,10 @@ left_column, right_column = st.beta_columns((2, 1))
 #-------------------------------------------------------
 
 # Get client's credit score data
-client_score = main_data[main_data["SK_ID_CURR"]==client_id].iloc[0]["Credit Score"]*100
+client_score = main_data[main_data["SK_ID_CURR"]==client_id].iloc[0]["Credit Score"]
 
 # Get similar profiles credit score data
-similar_clients_credit_score = similar_clients_data["Credit Score"].mean()*100
+similar_clients_credit_score = similar_clients_data["Credit Score"].mean()
 
 # Layout
 left_column.header("Default Risk Score")
@@ -240,16 +240,16 @@ graph_client_info["AGE"] = personal_info_client_df["AGE"]
 graph_client_info["YEARS AT CURRENT JOB"] = personal_info_client_df["YEARS AT CURRENT JOB"]
 
 
-best_cs_value = int(similar_clients_data["Credit Score"].min()*100)
-worst_cs_value = int(similar_clients_data["Credit Score"].max()*100)
+best_cs_value = int(similar_clients_data["Credit Score"].min())
+worst_cs_value = int(similar_clients_data["Credit Score"].max())
 
 best_threshold = left_column_2.slider('Ideal client minimun default risk score', best_cs_value, 100, best_cs_value + 25)
-best_data = similar_clients_data[similar_clients_data["Credit Score"]<=(best_threshold+1)/100].copy()
+best_data = similar_clients_data[similar_clients_data["Credit Score"]<=(best_threshold+1)].copy()
 best_data["AGE"] = best_data["DAYS_BIRTH"]/365*(-1)
 best_data["YEARS AT CURRENT JOB"] = best_data["DAYS_EMPLOYED"]/365*(-1)
 
 worst_threshold = left_column_2.slider('Worst client maximum default risk score', 0, worst_cs_value, worst_cs_value - 25)
-worst_data = similar_clients_data[similar_clients_data["Credit Score"]>=(worst_threshold)/100].copy()
+worst_data = similar_clients_data[similar_clients_data["Credit Score"]>=(worst_threshold)].copy()
 worst_data["AGE"] = worst_data["DAYS_BIRTH"]/365*(-1)
 worst_data["YEARS AT CURRENT JOB"] = worst_data["DAYS_EMPLOYED"]/365*(-1)
 
@@ -397,17 +397,17 @@ graph_main_data = pd.DataFrame()
 graph_main_data["AGE"] = main_data["DAYS_BIRTH"]/365*(-1)
 graph_main_data["YEARS AT CURRENT JOB"] = main_data["DAYS_EMPLOYED"]/365*(-1)
 
-best_cs_value = int(main_data["Credit Score"].min()*100)
-worst_cs_value = int(main_data["Credit Score"].max()*100)
+best_cs_value = int(main_data["Credit Score"].min())
+worst_cs_value = int(main_data["Credit Score"].max())
 
 best_global_threshold = right_column_2.slider('Ideal client minimun credit score', best_cs_value, 100, best_cs_value + 25, key="global_best")
 worst_global_threshold = right_column_2.slider('Worst client maximum credit score', 0, worst_cs_value, worst_cs_value - 25, key="global_worst")
 
-best_global_data = main_data[main_data["Credit Score"]<=best_global_threshold/100].copy()
+best_global_data = main_data[main_data["Credit Score"]<=best_global_threshold].copy()
 best_global_data["AGE"] = best_global_data["DAYS_BIRTH"]/365*(-1)
 best_global_data["YEARS AT CURRENT JOB"] = best_global_data["DAYS_EMPLOYED"]/365*(-1)
 
-worst_global_data = main_data[main_data["Credit Score"]>=worst_global_threshold/100].copy()
+worst_global_data = main_data[main_data["Credit Score"]>=worst_global_threshold].copy()
 worst_global_data["AGE"] = worst_global_data["DAYS_BIRTH"]/365*(-1)
 worst_global_data["YEARS AT CURRENT JOB"] = worst_global_data["DAYS_EMPLOYED"]/365*(-1)
 
