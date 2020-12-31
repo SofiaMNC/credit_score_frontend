@@ -67,7 +67,7 @@ if retrain_url != "http://":
                  )
     
     if response.status_code == 200:
-        st.sidebar.text("🤖 🛠 This functionality is under construction... Please come back later.")
+        st.sidebar.text("🤖 🛠 This functionality is\nunder construction... \nPlease come back later.")
     else:
         st.sidebar.text("🤖 🚨 The model can't be retrained.\nContact your sysadmin if the problem\npersists.")
 
