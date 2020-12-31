@@ -198,6 +198,17 @@ gauge.update_layout(width=600, height=500,
 
 left_column.plotly_chart(gauge)
 
+cs_text = "LOW RISK"
+if 25 < client_score <= 50:
+    cs_text = "LOWER RISK"
+elif 50 < client_score <= 75:
+    cs_text = "HIGHER RISK"
+elif 75 < client_score:
+    cs_text = "HIGH RISK"
+
+left_column.markdown('The selected client has a **{}** profile'.format(cs_text))
+left_column.markdown('Credit Score for similar clients based on the criteria you picked : **{0:.1f}**'.format(similar_clients_credit_score))
+
 #-------------------------------------------------------
 # Personal information
 #-------------------------------------------------------
